@@ -2091,7 +2091,7 @@ void call(redisClient *c, int flags) {
         char *latency_event = (c->cmd->flags & REDIS_CMD_FAST) ?
                               "fast-command" : "command";
         latencyAddSampleIfNeeded(latency_event,duration/1000);
-        slowlogPushEntryIfNeeded(c->argv,c->argc,duration);
+        slowlogPushEntryIfNeeded(c,c->argv,c->argc,duration);
     }
     if (flags & REDIS_CALL_STATS) {
         c->cmd->microseconds += duration;
